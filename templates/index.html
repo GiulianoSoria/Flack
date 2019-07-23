@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- BootStrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}">
+
+    <!-- JS Libraries -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
+
+    <title>
+        Flack!
+    </title>
+
+</head>
+<body>
+<div>
+    <main class="page-content">
+        <div class="container">
+            <div class="messaging">
+                <div class="inbox_msg">
+                    <div class="inbox_people">
+                        <div class="headind_srch">
+                            <div class="recent_heading">
+                                <h4 id='username_label'></h4>
+                            </div>
+                            <div class="srch_bar">
+                                <div class="stylish-input-group">
+                                    <button class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#NewRoomModal" id='new_room'>&#x2295;</button> 
+                                    <button class="btn btn-outline-danger btn-sm" type="button" id="logout">&#x2297;</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="inbox_chat" id="room_list">
+                            <ul id='change_room'>
+                                {% for my_room in rooms %}
+
+                                    <li class="my_room" data-room="{{ my_room }}">{{ my_room }}</li>
+
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mesgs">
+                        <div class="heading_room">
+                            <div class="recent_heading">
+                                <h4 id='chatroom_label'></h4>
+                            </div>
+                        </div>
+                        <div class="msg_history">
+                            <ul class='list-unstyled' id='msg_history'></ul>
+                        </div>
+                            <div class="type_msg">
+                                <form id="msg_form">
+                                    <div class="input_msg_write input-group">
+                                        <input type="text" class="write_msg" placeholder="Type a message" autocomplete='off' id="message"/>
+                                        <button class="msg_send_btn" type="submit" id="send_message"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- User Sign Up Modal -->
+        <div class="modal show" data-backdrop="static" data-keyboard="false" id="SignUpModal" tabindex="-1" role="dialog" aria-labelledby="SignUpModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="SignUpModalLabel">Enter your username:</h5>
+                    </div>
+                    <div class="modal-body">
+                        <form id="username_form">
+                            <div class="form-group">
+                                <input class="form-control" type="text" autocomplete="off" placeholder="Username" id="username">
+                                <hr>
+                                <button type="submit" class="btn btn-primary" data-dismiss="modal" id="send_username">Sign Up</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- New Room Modal -->
+        <div class="modal show" data-backdrop="static" data-keyboard="false" id="NewRoomModal" tabindex="-1" role="dialog" aria-labelledby="NewRoomModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="NewRoomModalLabel">Enter room name:</h5>
+                    </div>
+                    <div class="modal-body">
+                        <form id="room_form">
+                            <div class="form-group">
+                                <input class="form-control" type="text" autocomplete="off" placeholder="Room" id="room_name">
+                                <hr>
+                                <button type="submit" class="btn btn-primary" data-dismiss="modal" id="send_room">Create</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="{{ url_for('static', filename='index.js') }}"></script>
+
+</body>
+
+
+</html>
