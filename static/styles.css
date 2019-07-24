@@ -1,7 +1,7 @@
 .page-content {
   min-width: 100%;
   min-height: 100%;
-  margin: 0;
+  /* margin: 0; */
   /* padding: 0 0 0 0;
   margin: 0 0 0 0; */
 }
@@ -21,6 +21,7 @@ img{
   float: left;
   overflow: hidden;
   width: 40%; border-right:1px solid #c4c4c4;
+  height: 617px;
 }
 .inbox_msg {
   border: 1px solid #c4c4c4;
@@ -37,7 +38,18 @@ img{
   width: 60%; padding: 0;
 }
 
-.headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;}
+.headind_srch{ 
+  padding:10px 29px 10px 20px; 
+  overflow:hidden; 
+  border-bottom:1px solid #c4c4c4;
+}
+
+.headind_users{ 
+  padding:10px 29px 10px 20px; 
+  overflow:hidden; 
+  border-bottom:1px solid #c4c4c4;
+  border-top:1px solid #c4c4c4;
+}
 
 .heading_room {
   padding:10px 29px 10px 20px; 
@@ -52,7 +64,7 @@ img{
   font-size: 21px;
   margin: auto;
 }
-.srch_bar input{ border:1px solid #cdcdcd; border-width:0 0 1px 0; width:80%; padding:2px 0 4px 6px; background:none;}
+.srch_bar input{ border-width:0 0 1px 0; width:80%; padding:2px 0 4px 6px; background:none;}
 .srch_bar .input-group-addon button {
   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
   border: medium none;
@@ -91,11 +103,49 @@ img{
   color:#989898; 
   margin:auto
 }
+
+#private_room li{ 
+  font-size:15px; 
+  color:#464646; 
+  border-bottom: 1px solid #c4c4c4;
+  margin: 0;
+  padding: 18px 16px 10px;
+  overflow:hidden; 
+  clear:both;  
+}
+
+#private_room li:hover{
+  background-color: rgb(170, 170, 170);
+  color: black;
+}
+
+#private_room li:active{
+  background-color: rgb(124, 124, 124);
+  color: white;
+}
+
+#private_room li span{ 
+  font-size:13px; 
+  float:right;
+}
+#private_room p{ 
+  font-size:14px; 
+  color:#989898; 
+  margin:auto
+}
+
 .chat_img {
   float: left;
   width: 11%;
 }
+
 #change_room {
+  float: left;
+  padding: 0 0 0 0;
+  width: 100%;
+}
+
+#private_room {
   float: left;
   padding: 0 0 0 0;
   width: 100%;
@@ -110,7 +160,7 @@ img{
   margin: 0;
   padding: 18px 16px 10px;
 }
-.inbox_chat { height: 550px; overflow-y: scroll;}
+.inbox_chat { height: 249px; overflow-y: scroll;}
 
 .active_chat{ background:#ebebeb;}
 

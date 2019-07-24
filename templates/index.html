@@ -49,11 +49,28 @@
                                 {% endfor %}
                             </ul>
                         </div>
+                        <div class="headind_users">
+                            <div class="recent_heading">
+                                <h4 id=''>Users</h4>
+                            </div>
+                        </div>
+                        <div class="inbox_chat" id="users_list">
+                            <ul id='private_room'>
+                                {% for my_user in users %}
+
+                                    <li class="my_user" data-room="{{ my_user }}">{{ my_user }}</li>
+
+                                {% endfor %}
+                            </ul>
+                        </div>
                     </div>
                     <div class="mesgs">
                         <div class="heading_room">
                             <div class="recent_heading">
                                 <h4 id='chatroom_label'></h4>
+                            </div>
+                            <div class='srch_bar'>
+                                <button class='btn btn-outline-secondary btn-sm' id='private_message_button'>&#8942;</button>
                             </div>
                         </div>
                         <div class="msg_history">
@@ -105,6 +122,26 @@
                                 <input class="form-control" type="text" autocomplete="off" placeholder="Room" id="room_name">
                                 <hr>
                                 <button type="submit" class="btn btn-primary" data-dismiss="modal" id="send_room">Create</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Private Message Modal -->
+        <div class="modal show" data-backdrop="static" data-keyboard="false" id="PrivateMessageModal" tabindex="-1" role="dialog" aria-labelledby="PrivateMessageModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="PrivateMessageModalLabel">New private message:</h5>
+                    </div>
+                    <div class="modal-body">
+                        <form id="private_message_form">
+                            <div class="form-group">
+                                <input class="form-control" type="text" autocomplete="off" placeholder="Recipient" id="recipient">
+                                <input class="form-control" type="text" autocomplete="off" placeholder="Message" id="private_message">
+                                <hr>
+                                <button type="submit" class="btn btn-primary" data-dismiss="modal" id="send_private_message">Send</button>
                             </div>
                         </form>
                     </div>
