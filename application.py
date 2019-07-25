@@ -15,7 +15,6 @@ socketio = SocketIO(app)
 users = {}
 my_messages = {'General': []}
 rooms = ['General']
-private_rooms = []
 
 
 @app.route("/")
@@ -30,7 +29,7 @@ def user_data(username):
 @socketio.on('chatroom_creation')
 def chatroom_creation(room):
         if room in rooms:
-                emit('chatroom error', 'This room name is already taken!')
+                emit('chatroom_error', 'This room name is already taken!')
 
         else:
                 rooms.append(room)
@@ -74,9 +73,14 @@ def messageHandler(json):
 
 @socketio.on('private_message')
 def private_chatroom(data):
-        recipient = users[data['recipient']]
-        message = data['message']
-        emit('private_message', message, room=recipient)
+        sender = data['sender']
+        recipient = data['recipient']
+        if recipient not in users:
+                emit('private_message_error', 'This user is not connected!')
+        else:
+                recipient_id = users[data['recipient']]
+                message = data['message']
+                emit('private_message', {'sender': sender, 'message': message}, room=recipient_id)
 
 @socketio.on('disconnect_request')
 def disconnect_request():

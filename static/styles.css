@@ -81,17 +81,13 @@ img{
   margin: 0;
   padding: 18px 16px 10px;
   overflow:hidden; 
-  clear:both;  
+  clear:both;
+  background-color: white;  
 }
 
 #change_room li:hover{
-  background-color: rgb(170, 170, 170);
+  background-color: rgb(241, 241, 241);
   color: black;
-}
-
-#change_room li:active{
-  background-color: rgb(124, 124, 124);
-  color: white;
 }
 
 #change_room li span{ 
@@ -112,16 +108,12 @@ img{
   padding: 18px 16px 10px;
   overflow:hidden; 
   clear:both;  
+  background-color: white;
 }
 
 #private_room li:hover{
-  background-color: rgb(170, 170, 170);
+  background-color: rgb(241, 241, 241);
   color: black;
-}
-
-#private_room li:active{
-  background-color: rgb(124, 124, 124);
-  color: white;
 }
 
 #private_room li span{ 

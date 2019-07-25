@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     socket.on('connect', function() {
        
-            document.querySelector('#chatroom_label').innerHTML = localStorage.getItem('room');
+        document.querySelector('#chatroom_label').innerHTML = localStorage.getItem('room');
         if (!localStorage.getItem('username')) {
             document.querySelector('#chatroom_label').innerHTML = '';
             $('#SignUpModal').modal('show');
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
             socket.emit('connect');
             socket.emit('userdata', username);
             console.log(`${username} has logged in!`);
-            if (localStorage.getItem('username') === '') {
+            if (localStorage.getItem('username') === null) {
                 localStorage.setItem('username', username);
                 console.log(localStorage.getItem('username'));
                 document.getElementById('username_label').innerHTML = localStorage.getItem('username');
@@ -81,10 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    socket.on('chatroom_error', function(msg) {
-        alert(msg);
-    });
-
     socket.on('new_message', function(data) {
         console.log(`Message received!`);
         if (data !== null) {
@@ -108,6 +104,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelector('#send_room').onclick = function() {
         let room = document.querySelector('#room_name').value;
+        
+        socket.on('chatroom_error', function(msg) {
+            alert(msg);
+        });
+        
         if (room !== '') {
             socket.emit('chatroom_creation', room);
             const li = document.createElement('li');
@@ -131,39 +132,41 @@ document.addEventListener('DOMContentLoaded', () => {
         li.onclick = function() {
             let ul = document.querySelector('#msg_history');
             ul.innerHTML = '';
-            if (localStorage.getItem('room') !== li.dataset.room) {
-                socket.emit('change_chatroom', localStorage.getItem('room'), li.dataset.room);
-                document.querySelector('#chatroom_label').innerHTML = li.dataset.room;
-            }
-            else {
-                document.querySelector('#chatroom_label').innerHTML = li.dataset.room;
-            }
+            socket.emit('change_chatroom', localStorage.getItem('room'), li.dataset.room);
+            document.querySelector('#chatroom_label').innerHTML = li.dataset.room;
         };
     });
 
-    // document.querySelectorAll('.my_user').forEach(function(li) {
-        document.getElementById('private_message_button').onclick = function() {
-            console.log(`Private Message Modal displayed!`)
-            $('#PrivateMessageModal').modal('show');
-            return false;
-        };
-    // });
+
+    document.getElementById('private_message_button').onclick = function() {
+        $('#PrivateMessageModal').modal('show');
+        return false;
+    };
+
 
     document.getElementById('send_private_message').onclick = function() {
+        var sender = localStorage.getItem('username');
         var recipient = document.getElementById('recipient').value;
         var message = document.getElementById('private_message').value;
         socket.emit('private_message', {
+            'sender': sender,
             'recipient': recipient, 
             'message': message
         });
+        document.getElementById('recipient').value = '';
+        document.getElementById('private_message').value = '';
         console.log(`Private Message sent!`)
-        document.getElementById('recipient').innerHTML = '';
-        document.getElementById('private_message').innerHTML = '';
     }
 
-    socket.on('private_message', function(msg) {
+    socket.on('private_message_error', function(msg) {
         alert(msg);
     });
+
+    socket.on('private_message', function(data) {
+        console.log(`${data.sender} says: ${data.message}`)
+        alert(`${data.sender} says: ${data.message}`);
+    });
+
 
     $('#logout').on('click', function(event) {
         socket.emit('my_disconnect_response');
